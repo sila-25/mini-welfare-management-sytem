@@ -1,0 +1,155 @@
+# ============================================
+# CAREWAY WELFARE MANAGEMENT SYSTEM
+# Safe .htaccess Configuration
+# ============================================
+
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /careway/
+
+# ============================================
+# BASIC SECURITY HEADERS (Safe)
+# ============================================
+
+<IfModule mod_headers.c>
+    # Prevent Clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Enable XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ============================================
+# PREVENT DIRECTORY LISTING
+# ============================================
+Options -Indexes
+
+# ============================================
+# PROTECT SENSITIVE FILES
+# ============================================
+
+<FilesMatch "^(config\.php|\.htaccess|\.htpasswd)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(sql|log|bak|backup)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ============================================
+# BLOCK ACCESS TO SENSITIVE DIRECTORIES
+# ============================================
+
+RedirectMatch 403 ^/careway/includes/.*$
+RedirectMatch 403 ^/careway/logs/.*$
+
+# ============================================
+# PREVENT SQL INJECTION & XSS (Basic)
+# ============================================
+
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR,NC]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR,NC]
+RewriteCond %{QUERY_STRING} (SELECT|INSERT|UPDATE|DELETE|DROP|CREATE).*FROM [NC]
+RewriteRule .* - [F,L]
+
+# ============================================
+# BLOCK MALICIOUS USER AGENTS
+# ============================================
+
+RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|curl|scan|java|winhttp) [NC]
+RewriteRule .* - [F,L]
+
+# ============================================
+# BLOCK SUSPICIOUS REQUEST METHODS
+# ============================================
+
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|DELETE) [NC]
+RewriteRule .* - [F,L]
+
+# ============================================
+# CACHE CONTROL FOR STATIC ASSETS
+# ============================================
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "max-age=0, private, no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ============================================
+# COMPRESSION (GZIP)
+# ============================================
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# ============================================
+# ERROR DOCUMENTS
+# ============================================
+
+ErrorDocument 403 /careway/error/403.php
+ErrorDocument 404 /careway/error/404.php
+ErrorDocument 500 /careway/error/500.php
+
+# ============================================
+# PREVENT ACCESS TO .HTACCESS
+# ============================================
+
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# ============================================
+# SIMPLE URL REWRITING (Optional - Comment out if causing issues)
+# ============================================
+
+# Remove index.php from URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php($|\ |\?)
+RewriteRule ^ /%1 [R=301,L]
+
+# Member profile URLs
+RewriteRule ^member/([0-9]+)/?$ modules/members/view.php?id=$1 [L,QSA]
+
+# Loan details URLs
+RewriteRule ^loan/([0-9]+)/?$ modules/loans/details.php?id=$1 [L,QSA]
+
+# ============================================
+# PHP SETTINGS (Safe)
+# ============================================
+
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log "C:/xampp/htdocs/careway/logs/php_errors.log"
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 30
+    php_flag session.cookie_httponly On
+    php_flag session.use_only_cookies On
+</IfModule>
+
+<IfModule mod_php8.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log "C:/xampp/htdocs/careway/logs/php_errors.log"
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 30
+    php_flag session.cookie_httponly On
+    php_flag session.use_only_cookies On
+</IfModule>

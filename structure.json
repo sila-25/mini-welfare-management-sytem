@@ -1,0 +1,136 @@
+{
+    ".htaccess": "file",
+    "admin": {
+        "dashboard.php": "file",
+        "groups.php": "file",
+        "payments.php": "file",
+        "reports.php": "file",
+        "settings.php": "file",
+        "subscriptions.php": "file",
+        "users.php": "file"
+    },
+    "api": {
+        "auth.php": "file",
+        "loans.php": "file",
+        "members.php": "file",
+        "reports.php": "file"
+    },
+    "assets": {
+        "css": {
+            "dashboard.css": "file",
+            "responsive.css": "file",
+            "style.css": "file"
+        },
+        "images": {
+            "avatars": {},
+            "icons": {},
+            "logo.png": "file"
+        },
+        "js": {
+            "ajax.js": "file",
+            "charts.js": "file",
+            "main.js": "file"
+        }
+    },
+    "dashboard": {
+        "home.php": "file",
+        "notifications.php": "file",
+        "profile.php": "file"
+    },
+    "extract.py": "file",
+    "includes": {
+        "auth.php": "file",
+        "config.php": "file",
+        "db.php": "file",
+        "error_handler.php": "file",
+        "functions.php": "file",
+        "middleware.php": "file",
+        "permissions.php": "file",
+        "session.php": "file"
+    },
+    "index.php": "file",
+    "logs": {
+        "activity_log.txt": "file",
+        "error_log.txt": "file"
+    },
+    "make.py": "file",
+    "modules": {
+        "accounts": {
+            "create.php": "file",
+            "delete.php": "file",
+            "edit.php": "file",
+            "list.php": "file"
+        },
+        "contributions": {
+            "delete.php": "file",
+            "edit.php": "file",
+            "list.php": "file",
+            "record.php": "file"
+        },
+        "elections": {
+            "ballot.php": "file",
+            "candidates.php": "file",
+            "create.php": "file",
+            "results.php": "file",
+            "vote.php": "file"
+        },
+        "investments": {
+            "add.php": "file",
+            "list.php": "file",
+            "performance.php": "file"
+        },
+        "loans": {
+            "apply.php": "file",
+            "approve.php": "file",
+            "details.php": "file",
+            "disburse.php": "file",
+            "list.php": "file",
+            "repay.php": "file"
+        },
+        "meetings": {
+            "attendance.php": "file",
+            "create.php": "file",
+            "list.php": "file",
+            "report.php": "file"
+        },
+        "members": {
+            "add.php": "file",
+            "delete.php": "file",
+            "edit.php": "file",
+            "list.php": "file",
+            "view.php": "file"
+        },
+        "reports": {
+            "attendance_reports.php": "file",
+            "election_reports.php": "file",
+            "export_pdf.php": "file",
+            "financial.php": "file",
+            "loan_reports.php": "file",
+            "member_statement.php": "file"
+        },
+        "settings": {
+            "general.php": "file",
+            "permissions.php": "file",
+            "positions.php": "file",
+            "subscription.php": "file"
+        }
+    },
+    "pages": {
+        "forgot_password.php": "file",
+        "login.php": "file",
+        "register.php": "file",
+        "reset_password.php": "file"
+    },
+    "templates": {
+        "alerts.php": "file",
+        "footer.php": "file",
+        "header.php": "file",
+        "sidebar.php": "file",
+        "topbar.php": "file"
+    },
+    "uploads": {
+        "documents": {},
+        "profiles": {},
+        "reports": {}
+    }
+}
